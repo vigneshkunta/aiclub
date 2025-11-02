@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "npm uninstall @next/swc-win32-x64-msvc"
   },
   "dependencies": {
     "@next/swc-win32-x64-msvc": "^15.5.6",
