@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -8,6 +7,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   avatar: String,
+  history: { type: [mongoose.Schema.Types.ObjectId], ref: "Post" },
+  saved: { type: [mongoose.Schema.Types.ObjectId], ref: "Post" },
 });
 
 userSchema.pre("save", async function (next) {
@@ -24,7 +25,9 @@ userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     { _id: this._id, email: this.email },
     process.env.JWT_SECRET,
-    { expiresIn: "7d" }
+    {
+      expiresIn: "7d",
+    }
   );
 };
 

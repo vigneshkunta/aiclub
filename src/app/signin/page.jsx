@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signinUser } from "@/redux/user/userSlice";
 import { useRouter } from "next/navigation";
@@ -9,10 +9,16 @@ import styles from "./signin.module.css";
 export default function SigninPage() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (currentUser) {
+      router.replace("/");
+    }
+  }, [currentUser, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,8 +33,7 @@ export default function SigninPage() {
       <div className={styles.card}>
         <h2 className={styles.title}>Welcome Back</h2>
         <p className={styles.subtitle}>
-          Log in to continue your poetic journey.{" "}
-          <a href="/signup">Sign Up</a>
+          Log in to continue your poetic journey. <a href="/signup">Sign Up</a>
         </p>
 
         <form onSubmit={handleSubmit} className={styles.form}>

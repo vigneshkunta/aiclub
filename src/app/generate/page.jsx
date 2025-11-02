@@ -9,30 +9,36 @@ export default function Generate() {
   const [generatedPoem, setGeneratedPoem] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showScenarioPublic, setShowScenarioPublic] = useState(false);
+  // const [showScenarioPublic, setShowScenarioPublic] = useState(false);
 
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
 
   const handleGenerate = async () => {
-    if(!currentUser) {
-      setError("You must be signed in to generate poetry.");
-      return;
-    }
+    if (!currentUser) return setError("You must be signed in.");
+    if (!inputScenario.trim())
+      return setError("Please describe your scenario.");
+
     setLoading(true);
     setError(null);
 
     try {
-      // Simulate generation delay, replace with actual API call
-      await new Promise((r) => setTimeout(r, 1500));
-      setGeneratedPoem(
-        `Whispers of dawn, a soft, new light,
-Dreams take their flight through morning's sight.
-Ink on a page, a silent song,
-Where words weave and dreams belong.`
-      );
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          scenario: inputScenario,
+          credentials: "include",
+          userId: currentUser._id,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to generate poem");
+
+      setGeneratedPoem(data.generatedPoem);
     } catch (err) {
-      setError("Failed to generate poetry. Please try again.");
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -40,7 +46,6 @@ Where words weave and dreams belong.`
 
   const handleRegenerate = () => {
     setGeneratedPoem("");
-    setInputScenario("");
     setError(null);
   };
 
@@ -61,7 +66,7 @@ Where words weave and dreams belong.`
       />
 
       <div className={styles.controls}>
-        <label htmlFor="showPublic" className={styles.checkboxLabel}>
+        {/* <label htmlFor="showPublic" className={styles.checkboxLabel}>
           <input
             id="showPublic"
             type="checkbox"
@@ -70,7 +75,7 @@ Where words weave and dreams belong.`
             className={styles.checkboxInput}
           />
           Show my input scenario publicly?
-        </label>
+        </label> */}
 
         <button
           className={styles.generateButton}
@@ -94,18 +99,6 @@ Where words weave and dreams belong.`
               onClick={handleRegenerate}
             >
               Regenerate
-            </button>
-            <button
-              className={`${styles.actionButton} ${styles.actionButtonSave}`}
-              onClick={() => alert("Poem saved! (Placeholder)")}
-            >
-              Save
-            </button>
-            <button
-              className={`${styles.actionButton} ${styles.actionButtonPublish}`}
-              onClick={() => alert("Poem published! (Placeholder)")}
-            >
-              Publish
             </button>
           </div>
         </section>
