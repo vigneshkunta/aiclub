@@ -1,13 +1,15 @@
-// /app/api/explore/route.js
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/utils/config/db.js";
 import Post from "@/models/post.model.js";
+import User from "@/models/user.model.js";
 
 export async function GET(req) {
   try {
     await dbConnect();
 
-    const { page = 1, limit = 10 } = Object.fromEntries(new URL(req.url).searchParams);
+    const { page = 1, limit = 10 } = Object.fromEntries(
+      new URL(req.url).searchParams
+    );
 
     const skip = (page - 1) * limit;
 

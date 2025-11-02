@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { signoutUser } from "@/redux/user/userSlice";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -17,92 +17,68 @@ export default function Header() {
     setMenuOpen(false);
   };
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  // Close mobile menu automatically if screen width exceeds 768px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
 
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        {/* Logo */}
         <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
           AI Poetry Generator
         </Link>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleMenu}
-          className={styles.mobileMenu}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-        >
+        <button onClick={toggleMenu} className={styles.mobileMenu}>
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* Desktop Nav Links & Profile Section */}
         <div className={styles.navLinks}>
-          <Link href="/generate" className={styles.link} onClick={() => setMenuOpen(false)}>
-            Generate Poetry
-          </Link>
-          <Link href="/explore" className={styles.link} onClick={() => setMenuOpen(false)}>
-            Explore Feed
-          </Link>
-          <Link href="/history" className={styles.link} onClick={() => setMenuOpen(false)}>
-            History
-          </Link>
-          <Link href="/saved" className={styles.link} onClick={() => setMenuOpen(false)}>
-            Saved
-          </Link>
+          <Link href="/generate" className={styles.link}>Generate Poetry</Link>
+          <Link href="/explore" className={styles.link}>Explore Feed</Link>
+          <Link href="/history" className={styles.link}>History</Link>
+          <Link href="/saved" className={styles.link}>Saved</Link>
         </div>
 
-        {/* Desktop Profile Section (Sign In / Sign Out) */}
         <div className={styles.profileSection}>
           {currentUser ? (
             <>
-              <Link href="/profile" className={styles.profileLink} onClick={() => setMenuOpen(false)}>
-                {currentUser.fullName || currentUser.email}
+              <Link href="/profile" className={styles.profileLink}>
+                <User /> {currentUser.fullName || currentUser.email}
               </Link>
-              <button onClick={handleLogout} className={styles.logoutBtn}>
-                Logout
-              </button>
+              <button onClick={handleLogout} className={styles.logoutBtn}>Logout</button>
             </>
           ) : (
-            <Link href="/signin" className={styles.loginBtn} onClick={() => setMenuOpen(false)}>
-              Login
-            </Link>
+            <Link href="/signin" className={styles.loginBtn}>Login</Link>
           )}
         </div>
 
-        {/* Mobile Menu Wrapper */}
+        {/* Mobile Menu */}
         <div className={`${styles.mobileMenuWrapper} ${menuOpen ? styles.mobileMenuOpen : styles.mobileMenuClosed}`}>
           <div className={styles.navLinksMobile}>
-            <Link href="/generate" className={styles.linkMobile}>
-              Generate Poetry
-            </Link>
-            <Link href="/explore" className={styles.linkMobile}>
-              Explore Feed
-            </Link>
-            <Link href="/history" className={styles.linkMobile}>
-              History
-            </Link>
-            <Link href="/saved" className={styles.linkMobile}>
-              Saved
-            </Link>
+            <Link href="/generate" className={styles.linkMobile}>Generate Poetry</Link>
+            <Link href="/explore" className={styles.linkMobile}>Explore Feed</Link>
+            <Link href="/history" className={styles.linkMobile}>History</Link>
+            <Link href="/saved" className={styles.linkMobile}>Saved</Link>
           </div>
-
           <div className={styles.profileSectionMobile}>
             {currentUser ? (
               <>
-                <Link href="/profile" className={styles.profileLink} onClick={() => setMenuOpen(false)}>
-                  {currentUser.fullName || currentUser.email}
+                <Link href="/profile" className={styles.profileLink}>
+                  <User /> {currentUser.fullName || currentUser.email}
                 </Link>
-                <button onClick={handleLogout} className={styles.logoutBtn}>
-                  Logout
-                </button>
+                <button onClick={handleLogout} className={styles.logoutBtn}>Logout</button>
               </>
             ) : (
-              <Link href="/signin" className={styles.loginBtn} onClick={() => setMenuOpen(false)}>
-                Login
-              </Link>
+              <Link href="/signin" className={styles.loginBtn}>Login</Link>
             )}
           </div>
         </div>

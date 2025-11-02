@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+:root {
+  --accent: #7f5af0; /* Neon purple */
+  --bg: rgba(20, 20, 30, 0.85);
+  --card-bg: rgba(30, 30, 45, 0.85);
+  --text-main: #f5f5f7;
+  --text-muted: #b0b0c3;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  color: var(--text-main);
+  background: linear-gradient(160deg, #0f0f12, #1a1a2e);
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(127, 90, 240, 0.7);
+}
+
+.noPosts {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.poem {
+  font-family: 'Fira Code', monospace;
+  background: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.copyButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveButton:hover {
+  background: var(--accent);
+  color: #111;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.scenario {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-style: italic;
+}
+
+.scenarioHidden {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.loader {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--accent);
+  color: #111;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  animation: fadeInOut 2s forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px);}
+  10% { opacity: 1; transform: translateY(0);}
+  90% { opacity: 1; transform: translateY(0);}
+  100% { opacity: 0; transform: translateY(20px);}
+}

@@ -1,0 +1,97 @@
+/* footer.module.css */
+.footer {
+  background: linear-gradient(135deg, #1a1f2b, #111827);
+  color: #f0f4f8;
+  width: 100vw;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #fbbf24, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  color: #f0f4f8;
+  text-decoration: none; /* Remove underline */
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #fbbf24, #f472b6);
+  transition: width 0.3s ease;
+}
+
+.links a:hover {
+  color: #fbbf24;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+.copy {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* Glowing neon effect */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(244, 114, 182, 0.2), transparent 70%);
+  animation: rotate 20s linear infinite;
+  z-index: 0;
+}
+
+.footer > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .links {
+    gap: 1rem;
+  }
+}

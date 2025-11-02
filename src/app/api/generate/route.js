@@ -35,7 +35,7 @@ export async function POST(req) {
         "x-goog-api-key": GEMINI_API_KEY,
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: `Write a short poem about: ${scenario}` }] }],
+        contents: [{ parts: [{ text: `Write a short 4 line poem about the given description/scenario : ${scenario}` }] }],
       }),
     });
 

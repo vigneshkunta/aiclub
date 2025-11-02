@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
           <PersistGate loading={null} persistor={persistor}>
             <Header />
             {children}
+            <Footer />
           </PersistGate>
         </Provider>
       </body>

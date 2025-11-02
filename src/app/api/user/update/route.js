@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { dbConnect } from "@/lib/connectDB";
+import { dbConnect } from "@/utils/config/db.js";
 import User from "@/models/user.model.js";
 import jwt from "jsonwebtoken";
 

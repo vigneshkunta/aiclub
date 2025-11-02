@@ -1,4 +1,4 @@
-import dbConnect from "@/utils/config/db";
+import { dbConnect } from "@/utils/config/db";
 
 export async function GET(request) {
   await dbConnect();
