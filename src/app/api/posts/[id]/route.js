@@ -44,8 +44,8 @@ export async function PATCH(req, routerContext) {
   }
 }
 
-export async function DELETE(req, { params }) {
-  const { id } = params;
+export async function DELETE(req, routerContext) {
+  const { id } = await routerContext.params;
   if (!id)
     return NextResponse.json({ error: "Post ID required" }, { status: 400 });
 
