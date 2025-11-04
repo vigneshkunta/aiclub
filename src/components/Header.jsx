@@ -51,9 +51,9 @@ export default function Header() {
         <div className={styles.profileSection}>
           {currentUser ? (
             <>
-              <Link href="/profile" className={styles.profileLink}>
+              {/* <Link href="/profile" className={styles.profileLink}> */}
                 <User /> {currentUser.fullName || currentUser.email}
-              </Link>
+              {/* </Link> */}
               <button onClick={handleLogout} className={styles.logoutBtn}>Logout</button>
             </>
           ) : (
@@ -72,9 +72,9 @@ export default function Header() {
           <div className={styles.profileSectionMobile}>
             {currentUser ? (
               <>
-                <Link href="/profile" className={styles.profileLink}>
+                {/* <Link href="/profile" className={styles.profileLink}> */}
                   <User /> {currentUser.fullName || currentUser.email}
-                </Link>
+                {/* </Link> */}
                 <button onClick={handleLogout} className={styles.logoutBtn}>Logout</button>
               </>
             ) : (
